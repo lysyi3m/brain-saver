@@ -23,6 +23,6 @@ document.addEventListener('DOMContentLoaded', restoreOptions());
 document.getElementById('form-save').addEventListener('click', function(e) {
   e.preventDefault();
   const newPhrases = document.getElementById('form-phrases').value.trim();
-  const newPhrasesArray = newPhrases.split(', ');
+  const newPhrasesArray = newPhrases.toLowerCase().split(', ').sort();
   saveOptions({phrases: newPhrasesArray});
 });
