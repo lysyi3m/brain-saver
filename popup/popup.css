@@ -1,0 +1,29 @@
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: block;
+  list-style: none;
+  white-space: nowrap;
+}
+
+a,
+a:visited,
+a:focus {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+a:hover {
+  color: gray;
+}
