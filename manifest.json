@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Brain Saver for Facebook",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "author": "Emil Kashkevich <emil.kashkevich@gmail.com>",
   "background": {
