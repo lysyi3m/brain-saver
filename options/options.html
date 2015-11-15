@@ -2,18 +2,32 @@
 <html>
   <head>
     <title>Brain Saver Extension Options</title>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Specify unsafe phrases:</h1>
-    <hr />
-    <p>
-      coma-separated list
-    </p>
-    <form>
-      <textarea id="form-phrases" name="phrases"></textarea>
-      <button id="form-save">Save</button>
-      <p id="form-status"></p>
-    </form>
+    <div class="container">
+      <div class="row">
+        <h1 class="col-md-8 col-md-offset-2 text-center">
+          Brain Saver Extension Options
+        </h1>
+      </div>
+      <hr />
+      <div class="col-md-8 col-md-offset-2">
+        <form class="panel panel-default">
+          <div class="panel-heading">
+            Specify unsafe phrases
+            <i>(coma-separated)</i>:
+          </div>
+          <div class="form-group panel-body">
+            <textarea id="form-phrases" class="form-control" rows="4"></textarea>
+          </div>
+          <div class="panel-footer clearfix">
+            <p id="form-status" class="btn text-success pull-left"></p>
+            <button id="form-save" class="btn btn-primary pull-right">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <script src="options.js"></script>
   </body>
 </html>

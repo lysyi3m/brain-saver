@@ -9,7 +9,7 @@ function restoreOptions() {
 function saveOptions(options) {
   chrome.storage.sync.set(options, function() {
     const status = document.getElementById('form-status');
-    status.textContent = 'Options saved.';
+    status.textContent = 'Successfully saved';
     setTimeout(function() {
       status.textContent = '';
     }, 750);
