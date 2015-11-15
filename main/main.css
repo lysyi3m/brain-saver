@@ -1,0 +1,25 @@
+.__ext-brain-saver {
+  overflow: hidden !important;
+  height: 40px !important;
+  max-height: 40px !important;
+}
+
+.__ext-brain-saver:after {
+  position: absolute !important;
+  display: block !important;
+  width: 100% !important;
+  content: 'Blocked by Brain Saver' !important;
+  text-align: center !important;
+  color: #989da9 !important;
+  font-size: 12px !important;
+  line-height: 40px !important;
+}
+
+.__ext-brain-saver * {
+  overflow: hidden !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  color: transparent !important;
+}
