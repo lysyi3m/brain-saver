@@ -1,4 +1,4 @@
-document.querySelector('#go-to-options').addEventListener('click', function(e) {
+document.querySelector('#go-to-options').addEventListener('click', (e) => {
   e.preventDefault();
   if (chrome.runtime.openOptionsPage) {
     chrome.runtime.openOptionsPage();
@@ -6,12 +6,3 @@ document.querySelector('#go-to-options').addEventListener('click', function(e) {
     window.open(chrome.runtime.getURL('options.html'));
   }
 });
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, (tabs) => {
-//     const tabId = tabs[0].id;
-//     chrome.tabs.sendMessage(tabId, {action: 'GET_COUNTER'}, (response) => {
-//       console.log(response);
-//     });
-//   });
-// });
