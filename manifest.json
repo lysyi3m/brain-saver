@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Brain Saver for Facebook",
-  "version": "1.0.1",
+  "name": "Brain Saver",
+  "version": "1.0.2",
   "description": "",
   "author": "Emil Kashkevich <emil.kashkevich@gmail.com>",
   "background": {
@@ -12,7 +12,7 @@
   "page_action": {
     "default_icon": "icon.png",
     "default_popup": "popup/popup.html",
-    "default_title": "Brain Saver for Facebook"
+    "default_title": "Brain Saver"
   },
   "permissions": [
     "declarativeContent",
