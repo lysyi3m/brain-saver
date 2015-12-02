@@ -1,17 +1,21 @@
 // Restore options from storage
 function restoreOptions() {
-  chrome.storage.sync.get('phrases', (data) => {
-    document.getElementById('form-phrases').value = data.phrases.join(', ');
+  chrome.storage.sync.get('options', (data) => {
+    if (data.options) {
+      document.getElementById('form-facebook').checked = data.options.facebook;
+      document.getElementById('form-twitter').checked = data.options.twitter;
+      document.getElementById('form-phrases').value = data.options.phrases ? data.options.phrases.join(', ') : '';
+    }
   });
 }
 
 // Save options to storage:
 function saveOptions(options) {
-  chrome.storage.sync.set(options, () => {
-    const status = document.getElementById('form-status');
-    status.textContent = 'Successfully saved';
+  chrome.storage.sync.set({'options': options}, () => {
+    const formStatus = document.getElementById('form-status');
+    formStatus.textContent = 'Successfully saved';
     setTimeout(() => {
-      status.textContent = '';
+      formStatus.textContent = '';
     }, 750);
   });
 }
@@ -22,13 +26,13 @@ document.addEventListener('DOMContentLoaded', restoreOptions());
 // On form submit save options
 document.getElementById('form-save').addEventListener('click', (e) => {
   e.preventDefault();
-  const value = document.getElementById('form-phrases').value.trim();
-  if (value.length > 0) {
-    const valuesArray = value.toLowerCase().split(', ');
-    saveOptions({phrases: valuesArray});
-  } else {
-    saveOptions({phrases: []});
-  }
+  const phrases = document.getElementById('form-phrases').value.trim();
+
+  saveOptions({
+    phrases: phrases.length > 0 ? phrases.toLowerCase().split(', ') : [],
+    facebook: document.getElementById('form-facebook').checked,
+    twitter: document.getElementById('form-twitter').checked,
+  });
 });
 
 // Google Analytics stuff
