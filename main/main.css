@@ -1,7 +1,9 @@
 .__ext-brain-saver {
   overflow: hidden !important;
   height: 40px !important;
+  min-height: 40px !important;
   max-height: 40px !important;
+  pointer-events: none !important;
 }
 
 .__ext-brain-saver:after {
@@ -10,7 +12,8 @@
   width: 100% !important;
   content: 'Blocked by Brain Saver' !important;
   text-align: center !important;
-  color: #989da9 !important;
+  pointer-events: none !important;
+  color: #9197a3 !important;
   font-size: 12px !important;
   line-height: 40px !important;
 }
