@@ -1,69 +1,54 @@
-'use strict';
-
-function matchedPosts(phrases, context) {
+function matchPosts(phrases, context) {
   let posts = [];
-  if (context === 'facebook') {
+
+  switch (context) {
+  case 'facebook':
     posts = Array.prototype.slice.call(document.querySelectorAll('.userContentWrapper'));
-  } else if (context === 'twitter') {
+    break;
+  case 'twitter':
     posts = Array.prototype.slice.call(document.querySelectorAll('.tweet'));
+    break;
+  default:
+    break;
   }
 
   if (posts.length > 0) {
-    let matched = [];
-
-    posts.map(post => {
-      const postContent = post.textContent.toLowerCase();
-      if (phrases.some(phrase => postContent.indexOf(phrase) > -1)) {
-        return matched.push(post);
-      }
-    });
-
-    return matched;
+    return posts.filter(post => phrases.some(phrase => (post.textContent || {}).toLowerCase().indexOf(phrase) > -1));
   }
 }
 
 function hidePosts(posts, context) {
-  posts.map(post => {
+  posts.forEach(post => {
     if (!post.classList.contains('__ext-brain-saver')) {
-      return post.className = `${post.className} __ext-brain-saver ${context}`;
+      post.className = `${post.className} __ext-brain-saver ${context}`;
     }
   });
 }
 
-const observeDOM = (() => {
-  return function(obj, callback) {
-    if (window.MutationObserver) {
-      const obs = new MutationObserver((mutations) => {
-        if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
-          callback();
-        }
-      });
-      obs.observe(obj, {
-        childList: true,
-        subtree: true,
-      });
-    } else if (window.addEventListener) {
-      obj.addEventListener('DOMNodeInserted', callback, false);
-      obj.addEventListener('DOMNodeRemoved', callback, false);
-    }
-  };
-})();
+function processPosts(message) {
+  const posts = matchPosts(message.options.phrases, message.context);
 
+  if (posts.length > 0) {
+    hidePosts(posts, message.context);
+  }
+}
 
-chrome.extension.onMessage.addListener((message) => {
-  if (message.options.phrases.length > 0) {
-    const posts = matchedPosts(message.options.phrases, message.context);
-
-    if (posts.length > 0) {
-      hidePosts(posts, message.context);
-    }
-
-    observeDOM(document, () => {
-      const posts = matchedPosts(message.options.phrases, message.context);
-
-      if (posts.length > 0) {
-        hidePosts(posts, message.context);
-      }
+function observeDOM(obj, callback) {
+  if (window.MutationObserver) {
+    const obs = new MutationObserver(mutations => {
+      if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) callback();
     });
+    obs.observe(obj, { childList: true, subtree: true });
+  } else if (window.addEventListener) {
+    obj.addEventListener('DOMNodeInserted', callback, false);
+    obj.addEventListener('DOMNodeRemoved', callback, false);
+  }
+}
+
+chrome.extension.onMessage.addListener(message => {
+  if (message.options.phrases.length > 0) {
+    processPosts(message);
+
+    observeDOM(document, () => processPosts(message));
   }
 });
